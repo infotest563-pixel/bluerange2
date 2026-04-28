@@ -1,0 +1,73 @@
+@font-face {
+    font-family: 'Copyright Klim Type Foundry';
+    src: url('TestUntitledSans-Bold.woff2') format('woff2'),
+        url('TestUntitledSans-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Copyright Klim Type Foundry';
+    src: url('TestUntitledSans-Medium.woff2') format('woff2'),
+        url('TestUntitledSans-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Copyright Klim Type Foundry';
+    src: url('TestUntitledSans-Regular.woff2') format('woff2'),
+        url('TestUntitledSans-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Copyright Klim Type Foundry';
+    src: url('TestUntitledSans-Light.woff2') format('woff2'),
+        url('TestUntitledSans-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Alias — "Consid Sans" maps to the same TestUntitledSans files */
+@font-face {
+    font-family: 'Consid Sans';
+    src: url('TestUntitledSans-Regular.woff2') format('woff2'),
+        url('TestUntitledSans-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Consid Sans';
+    src: url('TestUntitledSans-Medium.woff2') format('woff2'),
+        url('TestUntitledSans-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Consid Sans';
+    src: url('TestUntitledSans-Bold.woff2') format('woff2'),
+        url('TestUntitledSans-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Consid Sans';
+    src: url('TestUntitledSans-Light.woff2') format('woff2'),
+        url('TestUntitledSans-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+

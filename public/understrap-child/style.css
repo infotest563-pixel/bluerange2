@@ -1,0 +1,20 @@
+/*
+Theme Name: Understrap Child
+Author: bluerange
+Description: A child theme of Understrap WordPress theme
+Version: 1.0
+Template: understrap
+
+This is the child theme for Understrap theme, generated with Generate Child Theme plugin by catchthemes.
+
+(optional values you can add: Theme URI, Author URI, License, License URI, Tags, Text Domain)
+*/
+
+
+
+
+
+a[href="https://simplemaps.com"] {
+    display: none !important;
+    position:absolute !important;
+}

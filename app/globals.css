@@ -1,0 +1,1569 @@
+/* Global styles cleared as per user request to remove Tailwind */
+body {
+  /* Minimal reset or empty if Understrap takes over */
+}
+
+/* =============================================
+   FONT — Use Montserrat from Google Fonts (same as live bluerange.com)
+   "Consid Sans" is an alias that maps to Montserrat
+   ============================================= */
+
+.all-sec-lastform.sec-padd {
+  display: none !important;
+}
+
+#loading,
+#test,
+#whois {
+  display: none;
+}
+
+/* =============================================
+   TYPOGRAPHY — matches bluerange.com exactly
+   Font: "Consid Sans" = TestUntitledSans
+   loaded via /understrap-child/fonts/stylesheet.css
+   ============================================= */
+
+body,
+h1, h2, h3, h4, h5, h6,
+p, li {
+  font-family: 'Montserrat', "Consid Sans", sans-serif !important;
+  margin: 0;
+  padding: 0;
+  line-height: 28px;
+  font-size: 18px;
+  color: var(--text, #3a3a3a);
+  font-style: normal;
+  font-weight: normal;
+}
+
+/* Apply font to body and common elements — NOT pseudo-elements */
+body, div, span, p, a, h1, h2, h3, h4, h5, h6,
+li, ul, ol, td, th, label, input, select, textarea,
+button, nav, header, footer, section, article, aside,
+main, figure, figcaption, form, table {
+  font-family: 'Montserrat', "Consid Sans", sans-serif !important;
+}
+
+/* Restore icon fonts for FontAwesome icons */
+i[class*="fa"],
+.fa, .fas, .far, .fab, .fal {
+  font-family: 'FontAwesome' !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+  color: var(--title, #090b2c);
+  padding-bottom: 15px;
+}
+
+h1 { font-size: 52px; line-height: 64px; }
+h2 { font-size: 48px; line-height: 54px; color: #38414a; }
+h3 { font-size: 34px; line-height: 40px; }
+h4 { font-size: 24px; line-height: 30px; padding-bottom: 10px; }
+h5 { font-size: 20px; line-height: 28px; padding-bottom: 10px; }
+h6 { font-size: 16px; line-height: 24px; padding-bottom: 8px; }
+
+p, li {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28px;
+  padding-bottom: 15px;
+}
+
+p { padding-bottom: 20px; }
+
+a { text-decoration: none; }
+
+/* All page banners — ensure white text shows over overlay */
+.sem-sec-baner.bl-overlay .sem-baner-inner,
+.sem-sec-baner.bl-overlay .sem-baner-inner h1,
+.sem-sec-baner.bl-overlay .sem-baner-inner h2,
+.sem-sec-baner.bl-overlay .sem-baner-inner h3,
+.sem-sec-baner.bl-overlay .sem-baner-inner p,
+.sem-sec-baner.bl-overlay .sem-baner-inner div,
+.sem-sec-baner.bl-overlay .sem-baner-inner span,
+.sem-sec-baner.bl-overlay .tx-wht,
+.sem-sec-baner.bl-overlay .tx-wht h1,
+.sem-sec-baner.bl-overlay .tx-wht h2,
+.sem-sec-baner.bl-overlay .tx-wht p,
+.sem-sec-baner.bl-overlay .tx-wht div,
+.sem-sec-baner.bl-overlay .tx-wht span {
+    color: #fff !important;
+    position: relative;
+    z-index: 2;
+}
+
+/* Ensure overlay pseudo-element is behind text */
+.sem-sec-baner.bl-overlay::before {
+    z-index: 1;
+}
+
+.sem-sec-baner.bl-overlay .container {
+    position: relative;
+    z-index: 2;
+}
+.co-location-template .cl-sec-srcbanner .coloc-banner-text,
+.co-location-template .cl-sec-srcbanner .coloc-banner-text h1,
+.co-location-template .cl-sec-srcbanner .coloc-banner-text h2,
+.co-location-template .cl-sec-srcbanner .coloc-banner-text h3,
+.co-location-template .cl-sec-srcbanner .coloc-banner-text p,
+.co-location-template .cl-sec-srcbanner .coloc-banner-text div,
+.co-location-template .cl-sec-srcbanner .coloc-banner-text span,
+.co-location-template .cl-sec-srcbanner .coloc-banner-text li {
+    color: #fff !important;
+}
+.wd-100 .rounded-circle {
+    display: inline-flex;
+    width: 100px !important;
+    height: 100px !important;
+    min-width: 100px !important;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.wd-100 .rounded-circle img {
+    width: 60px !important;
+    height: 60px !important;
+    object-fit: contain;
+    margin-bottom: 0 !important;
+}
+
+/* Responsive typography — matches bl-responsive.css from bluerange.com */
+@media only screen and (min-width: 1024px) and (max-width: 1370px) {
+  h1 { font-size: 46px !important; line-height: 56px !important; }
+  h2 { font-size: 42px !important; line-height: 52px !important; }
+  h3 { font-size: 28px !important; line-height: 38px !important; }
+}
+
+@media only screen and (max-width: 1200px) {
+  h1 { font-size: 46px !important; line-height: 58px !important; }
+  h2 { font-size: 36px !important; line-height: 46px !important; }
+  h3 { font-size: 28px !important; line-height: 38px !important; }
+  h4 { font-size: 24px !important; line-height: 30px !important; }
+  h5 { font-size: 20px !important; line-height: 28px !important; }
+  h6 { font-size: 16px !important; line-height: 24px !important; }
+}
+
+@media only screen and (max-width: 992px) {
+  h1 { font-size: 40px !important; line-height: 46px !important; }
+  h2 { font-size: 32px !important; line-height: 42px !important; }
+  h3 { font-size: 26px !important; line-height: 34px !important; }
+  h4 { font-size: 22px !important; line-height: 28px !important; }
+  h5 { font-size: 19px !important; line-height: 27px !important; }
+  h6 { font-size: 16px !important; line-height: 24px !important; }
+}
+
+@media only screen and (max-width: 768px) {
+  h1, .h1 { font-size: 42px !important; line-height: 52px !important; }
+  h2, .h2 { font-size: 34px !important; line-height: 44px !important; }
+  h3 { font-size: 28px !important; line-height: 36px !important; }
+  h4 { font-size: 22px !important; line-height: 30px !important; }
+  h5 { font-size: 18px !important; line-height: 28px !important; }
+}
+
+@media only screen and (max-width: 574px) {
+  h1, h2, h3, h4, h5, h6, p { padding-bottom: 10px; }
+  h1, .h1 { font-size: 30px !important; line-height: 38px !important; }
+  h2, .h2 { font-size: 26px !important; line-height: 34px !important; }
+  h3 { font-size: 25px !important; line-height: 32px !important; }
+  h4 { font-size: 22px !important; line-height: 30px !important; }
+  h5 { font-size: 18px !important; line-height: 28px !important; }
+}
+
+/* Enable hover for dropdown menus on desktop with high specificity */
+@media (min-width: 768px) {
+  .navbar-nav .dropdown:hover>.dropdown-menu {
+    display: block !important;
+    margin-top: 0 !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+}
+
+/* Fallback background for overlay sections if image is missing */
+.bl-overlay {
+  background-color: #2c3e50;
+}
+
+
+.main-form p select,
+.main-form p textarea,
+.main-form p input[type="number"],
+.main-form p input[type="text"],
+.main-form p input[type="email"],
+.main-form p input[type="tel"] {
+    width: 100%;
+}
+
+
+
+.cnt7-chtkbox label {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    cursor: pointer;
+}
+
+.cnt7-chtkbox label input[type="checkbox"] {
+    margin-top: 3px;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.cnt7-chtkbox label span {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.hm-getaquote-inner .hm-col-frm .wd-100 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* Domain search loading dots animation */
+@keyframes wdc-jump {
+    0%, 60%, 100% { transform: translateY(0px); opacity: 0.3; }
+    30% { transform: translateY(-10px); opacity: 1; }
+}
+.wdc-dot-1 { animation: wdc-jump 1s ease-in-out infinite; animation-delay: 0s; }
+.wdc-dot-2 { animation: wdc-jump 1s ease-in-out infinite; animation-delay: 0.18s; }
+.wdc-dot-3 { animation: wdc-jump 1s ease-in-out infinite; animation-delay: 0.36s; }
+
+/* Career form — override bl-custom.css hm-getforms styles */
+.career-template .main-form p input,
+.career-template .main-form p input[type="text"],
+.career-template .main-form p input[type="tel"],
+.career-template .main-form p input[type="email"],
+.career-template .main-form p select,
+.career-template .main-form p textarea {
+    border: solid 1px #b2b2b2 !important;
+    border-bottom: solid 1px #b2b2b2 !important;
+    border-radius: 5px !important;
+    padding: 10px 15px !important;
+    padding-left: 15px !important;
+    margin: 10px 0 !important;
+    color: #4f4f4f !important;
+    width: 100%;
+}
+
+/* Nav link font — match live site exactly (bl-menu.css) */
+ul#main-menu li {
+    padding-bottom: 0 !important;
+}
+
+ul#main-menu li a.nav-link {
+    font-family: "Consid Sans", sans-serif !important;
+    color: var(--text, #3a3a3a) !important;
+    text-decoration: none;
+    transition: 0.3s all;
+    white-space: nowrap;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 0;
+    margin: 0 10px;
+}
+
+ul#main-menu li a.nav-link:hover {
+    color: #50c1ed !important;
+}
+
+ul#main-menu .dropdown-item {
+    font-family: "Consid Sans", sans-serif !important;
+    color: #3a3a3a;
+    font-size: 16px;
+    padding: 7px 15px;
+    white-space: nowrap;
+}
+
+/* Top header */
+.top-header ul li a,
+.top-header ul li span {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: "Consid Sans", sans-serif !important;
+}
+
+/* Navbar — transparent on desktop, white on mobile (matches live site) */
+nav#main-nav {
+    background: transparent !important;
+    padding: 20px 0;
+    border-bottom: solid 2px #dbdbdb;
+}
+
+/* Navbar container — vertically center all items */
+nav#main-nav .container {
+    display: flex !important;
+    align-items: center !important;
+}
+
+@media only screen and (max-width: 1024px) {
+    nav#main-nav {
+        background: #fff !important;
+        margin-top: -1px;
+    }
+}
+
+/* Keep desktop nav visible up to 1024px — override Bootstrap's 768px collapse */
+@media (min-width: 768px) and (max-width: 1024px) {
+    #navbarNavDropdown {
+        display: none !important;
+    }
+}
+
+@media (min-width: 1025px) {
+    #navbarNavDropdown {
+        display: flex !important;
+    }
+}
+
+/* Navbar toggler — black background like live site */
+.navbar-expand-md .navbar-toggler {
+    background: #000 !important;
+}
+
+@media (max-width: 1024px) {
+    #navbarNavDropdown {
+        display: none !important;
+    }
+    .navbar-toggler {
+        display: none !important;
+    }
+}
+
+/* Hide language switcher on mobile ≤1024px — sidebar handles navigation */
+@media (max-width: 1024px) {
+    .lang-switcher {
+        /* display: none !important;
+        visibility: hidden !important; */
+    }
+}
+
+/* Always show the DeskSidebar hamburger button */
+.desk-show {
+    display: inline-flex !important;
+}
+
+/* Force sidebar hamburger always visible on all screen sizes */
+#wrapper-navbar .navbar > .container > button[aria-label="Open menu"] {
+    display: inline-flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+
+.hm-getforms p input, .hm-getforms p input[type="text"], .main-form p input[type="tel"], .hm-getforms p input[type="email"], .hm-getforms p select, .hm-getforms p textarea {
+    border: 0 !important;
+    border-bottom: solid 1px #3a3a3a !important;
+    margin: 0px;
+    padding-left: 0;
+    color: #3a3a3a;
+    border-radius: 0px !important;
+}
+
+/* Footer bottom — fix layout to match live site */
+.footer-bottom {
+    padding: 30px 0;
+}
+
+.footer-bottom .ftr-botom-menu .wd-100 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.ftr-botom-menu .wd-100 ul {
+    display: flex !important;
+    flex-wrap: nowrap;
+    gap: 20px 30px;
+    justify-content: flex-end;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ftr-botom-menu .wd-100 ul:first-child {
+    margin-bottom: 25px;
+    gap: 25px;
+}
+
+.ftr-botom-menu .wd-100 ul li {
+    padding-bottom: 0 !important;
+}
+
+.ftr-botom-menu .wd-100 ul li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.ftr-botom-menu .wd-100 ul li a img {
+    margin-bottom: 0 !important;
+}
+
+.ftr-copyrgt .wd-100 a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.footer-bottom .row {
+    align-items: center;
+}
+
+/* Footer logo slider — all logos on one row */
+.footer-part2 .footer-inner2 {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 40px !important;
+    padding: 20px 0 !important;
+}
+
+.footer-part2 .footer-inner2 .bl-box {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.footer-part2 .footer-inner2 .blue-image img {
+    height: 30px !important;
+    width: auto !important;
+    max-width: 160px !important;
+    object-fit: contain !important;
+    margin-bottom: 0 !important;
+}
+
+/* Footer menu headings — match live site */
+.ftr-menu .ft-title,
+.ftr-social .ft-title {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+    color: #fff !important;
+    padding-bottom: 20px !important;
+    line-height: 1.4 !important;
+}
+
+/* Footer menu links */
+.foot-menu ul li a,
+.ftr-menu ul li a {
+    font-size: 16px !important;
+    color: #fff !important;
+    text-decoration: none;
+    line-height: 1.5;
+    transition: color 0.2s;
+}
+
+.foot-menu ul li a:hover,
+.ftr-menu ul li a:hover {
+    color: #50c1ed !important;
+}
+
+.foot-menu ul li,
+.ftr-menu ul li {
+    padding-bottom: 8px !important;
+}
+
+/* Service level boxes — black paragraph text */
+.vs-servilvl-inner2 p,
+.vs-servilvl-inner2 .wd-100 p,
+.vs-servilvl-inner2 div,
+.vs-servilvl-inner2 .wd-100 div {
+    color: #ffffff !important;
+}
+
+/* Virtual Server — Get in Touch section */
+.all-sec-lastform-vs {
+    background: #e8e8e8;
+    padding: 60px 0;
+}
+
+.vs-getintouch-box {
+    background: #50c1ed;
+    border-radius: 16px;
+    padding: 50px 60px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.vs-getintouch-box h2 {
+    color: #fff !important;
+    font-size: 36px !important;
+    margin-bottom: 30px !important;
+    padding-bottom: 20px !important;
+}
+
+/* Form inputs inside blue box */
+.vs-getintouch-box .main-form p input,
+.vs-getintouch-box .main-form p input[type="text"],
+.vs-getintouch-box .main-form p input[type="email"],
+.vs-getintouch-box .main-form p input[type="tel"],
+.vs-getintouch-box .main-form p select,
+.vs-getintouch-box .main-form p textarea {
+    background: transparent !important;
+    border: none !important;
+    border-bottom: solid 1px rgba(255,255,255,0.7) !important;
+    border-radius: 0 !important;
+    color: #fff !important;
+    padding-left: 0 !important;
+    margin: 0 !important;
+}
+
+.vs-getintouch-box .main-form p input::placeholder,
+.vs-getintouch-box .main-form p textarea::placeholder {
+    color: rgba(255,255,255,0.8) !important;
+}
+
+.vs-getintouch-box .main-form p select option {
+    color: #333;
+    background: #fff;
+}
+
+.vs-getintouch-box .cnt7-chtkbox label span,
+.vs-getintouch-box .cnt7-chtkbox label {
+    color: #fff !important;
+}
+
+.vs-getintouch-box .wpcf7-submit {
+    background: #fff !important;
+    color: #333 !important;
+    border-radius: 55px !important;
+    padding: 12px 35px !important;
+    border: none !important;
+    font-weight: 500 !important;
+}
+
+.vs-getintouch-box .wpcf7-submit:hover {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+/* Virtual Server Get in Touch — center submit button and fix color */
+.vs-getintouch-box .form-btn {
+    text-align: center !important;
+}
+
+.vs-getintouch-box .form-btn p {
+    /* text-align: center !important; */
+    margin-bottom: 0 !important;
+}
+
+.vs-getintouch-box .wpcf7-submit {
+    background: #fff !important;
+    color: #333 !important;
+    border-radius: 55px !important;
+    padding: 25px 25px !important;
+    border: none !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    border: 1px solid #ffffff;
+}
+
+
+.vs-getintouch-box .wpcf7-submit:hover {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+/* Virtual Server submit button — centered text, correct padding */
+.vs-getintouch-box .wpcf7-submit {
+    padding: 25px 25px !important;
+    text-align: center !important;
+    display: inline-block !important;
+    line-height: 1 !important;
+}
+
+/* Virtual Server submit button — fix width */
+.vs-getintouch-box .form-btn p input[type="submit"] {
+    width: auto !important;
+    min-width: 140px !important;
+    max-width: 200px !important;
+    padding: 14px 35px !important;
+}
+
+/* Virtual Server submit — white border */
+.vs-getintouch-box input[type="submit"].wpcf7-submit {
+    border: 1px solid #ffffff !important;
+    background: #fff !important;
+    color: #333 !important;
+    width: auto !important;
+    min-width: 140px !important;
+    padding: 14px 35px !important;
+    border-radius: 55px !important;
+    cursor: pointer !important;
+}
+
+.vs-getintouch-box input[type="submit"].wpcf7-submit:hover {
+    background: transparent !important;
+    color: #fff !important;
+    border: 1px solid #ffffff !important;
+}
+
+/* Swiper prev/next arrows — top position */
+.swiper-button-prev,
+.swiper-button-next {
+    top: 40px !important;
+}
+
+/* Domains page — show get in touch section */
+.domains-template .all-sec-lastform {
+    display: block !important;
+    background: #a7d4e7;
+}
+
+.domains-template .all-sec-lastform h2 {
+    color: #fff !important;
+}
+
+/* Tables — responsive horizontal scroll on mobile */
+@media (max-width: 768px) {
+    .ia-infra_sametable,
+    .same_tables {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+        display: block !important;
+    }
+
+    .ia-infra_sametable table,
+    .same_tables table {
+        min-width: 600px !important;
+        width: 100% !important;
+    }
+
+    .ia-infra_sametable th,
+    .ia-infra_sametable td,
+    .same_tables th,
+    .same_tables td {
+        font-size: 14px !important;
+        padding: 8px 6px !important;
+        white-space: normal !important;
+        word-wrap: break-word !important;
+    }
+
+    .ia-infra_sametable thead th,
+    .same_tables thead th {
+        font-size: 13px !important;
+    }
+}
+
+/* Logo sliders — better mobile display */
+@media (max-width: 768px) {
+    .sat-securlog .swiper-slide img,
+    .op-prtnrsldr .swiper-slide img,
+    .hm_frtbnr-inner .swiper-slide img {
+        max-height: 50px !important;
+        width: auto !important;
+    }
+}
+
+/* Infrastructure tables — force horizontal scroll on all screen sizes */
+.ia-infra_sametable,
+.ia-clenttable,
+.ia-ntwrktable,
+.ia-srvrtable,
+.same_tables {
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    display: block !important;
+    width: 100% !important;
+}
+
+.ia-infra_sametable table,
+.ia-clenttable table,
+.ia-ntwrktable table,
+.ia-srvrtable table,
+.same_tables table {
+    width: 100% !important;
+    min-width: 500px !important;
+    table-layout: auto !important;
+}
+
+@media (max-width: 768px) {
+    .ia-infra_sametable table,
+    .ia-clenttable table,
+    .ia-ntwrktable table,
+    .ia-srvrtable table,
+    .same_tables table {
+        min-width: 480px !important;
+        font-size: 13px !important;
+    }
+
+    .ia-infra_sametable th,
+    .ia-infra_sametable td,
+    .same_tables th,
+    .same_tables td {
+        padding: 8px 6px !important;
+        font-size: 13px !important;
+    }
+
+    /* First column fixed width */
+    .ia-infra_sametable table th:first-child,
+    .ia-infra_sametable table td:first-child,
+    .same_tables table th:first-child,
+    .same_tables table td:first-child {
+        min-width: 140px !important;
+        max-width: 160px !important;
+    }
+}
+
+/* Show get in touch section on specific pages */
+.crowdsec-template .all-sec-lastform,
+.security-awareness-template .all-sec-lastform,
+.our-partners-template .all-sec-lastform,
+.products-template .all-sec-lastform,
+.microsoft-template .all-sec-lastform,
+.web-hotel-template .all-sec-lastform,
+.broadband-template .all-sec-lastform,
+.screenconnect-template .all-sec-lastform,
+.about-template .all-sec-lastform {
+    display: block !important;
+    background: #a7d4e7;
+}
+
+.crowdsec-template .all-sec-lastform h2,
+.security-awareness-template .all-sec-lastform h2,
+.our-partners-template .all-sec-lastform h2,
+.products-template .all-sec-lastform h2,
+.microsoft-template .all-sec-lastform h2,
+.web-hotel-template .all-sec-lastform h2,
+.broadband-template .all-sec-lastform h2,
+.screenconnect-template .all-sec-lastform h2,
+.about-template .all-sec-lastform h2 {
+    color: #fff !important;
+}
+
+/* Footer responsive — mobile fixes */
+@media (max-width: 768px) {
+    /* Logo slider — keep on one row, smaller */
+    .footer-part2 .footer-inner2 {
+        flex-wrap: nowrap !important;
+        gap: 20px !important;
+        padding: 15px 0 !important;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .footer-part2 .footer-inner2 .blue-image img {
+        height: 24px !important;
+        max-width: 120px !important;
+    }
+
+    /* UC badge smaller on mobile */
+    .ftr-social .wd-100 > div img {
+        max-height: 60px !important;
+        width: auto !important;
+    }
+
+    /* Footer bottom — stack vertically on mobile */
+    .footer-bottom .row {
+        flex-direction: column !important;
+        gap: 20px;
+    }
+
+    .footer-bottom .ftr-copyrgt,
+    .footer-bottom .ftr-botom-menu {
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    .ftr-botom-menu .wd-100 {
+        align-items: center !important;
+    }
+
+    .ftr-botom-menu .wd-100 ul {
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+        gap: 15px 20px !important;
+    }
+
+    .ftr-botom-menu .wd-100 ul:first-child {
+        margin-bottom: 15px !important;
+    }
+
+    /* Footer menu columns — stack on mobile */
+    .footer-inner1 .ftr-menu,
+    .footer-inner1 .ftr-social {
+        margin-bottom: 30px;
+    }
+
+    .footer-inner1 .ftr-menu:last-child,
+    .footer-inner1 .ftr-social:last-child {
+        margin-bottom: 0;
+    }
+}
+
+/* Footer logo row — force single row on ALL screen sizes */
+.footer-part2 .footer-inner2.row {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 30px !important;
+    margin-bottom: 0 !important;
+}
+
+.footer-part2 .footer-inner2 .bl-box {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    max-width: none !important;
+    padding: 0 !important;
+}
+
+.footer-part2 .footer-inner2 .blue-image {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.footer-part2 .footer-inner2 .blue-image img {
+    height: 28px !important;
+    width: auto !important;
+    max-width: 150px !important;
+    object-fit: contain !important;
+    margin: 0 !important;
+    display: block !important;
+}
+
+@media (max-width: 574px) {
+    .footer-part2 .footer-inner2.row {
+        gap: 20px !important;
+    }
+
+    .footer-part2 .footer-inner2 .blue-image img {
+        height: 22px !important;
+        max-width: 100px !important;
+    }
+}
+
+/* Footer logo row — increase icon size */
+.row.footer-inner2.d-flex.align-items-center {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 50px !important;
+    padding: 20px 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.row.footer-inner2.d-flex.align-items-center .bl-box {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    padding: 0 !important;
+}
+
+.row.footer-inner2.d-flex.align-items-center .blue-image img {
+    height: 40px !important;
+    width: auto !important;
+    max-width: 200px !important;
+    object-fit: contain !important;
+    margin: 0 !important;
+    display: block !important;
+}
+
+@media (max-width: 768px) {
+    .row.footer-inner2.d-flex.align-items-center {
+        gap: 25px !important;
+        padding: 15px 10px !important;
+    }
+
+    .row.footer-inner2.d-flex.align-items-center .blue-image img {
+        height: 28px !important;
+        max-width: 120px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .row.footer-inner2.d-flex.align-items-center {
+        gap: 15px !important;
+    }
+
+    .row.footer-inner2.d-flex.align-items-center .blue-image img {
+        height: 22px !important;
+        max-width: 90px !important;
+    }
+}
+
+/* Footer menu headings — uppercase, sub links — normal case */
+.ftr-menu .ft-title,
+.ftr-social .ft-title {
+    text-transform: uppercase !important;
+}
+
+.ftr-menu ul li a,
+.ftr-social ul li a {
+    text-transform: none !important;
+}
+
+/* Header nav — main menu items uppercase, dropdown items normal */
+ul#main-menu li a.nav-link {
+    text-transform: uppercase !important;
+}
+
+ul#main-menu .dropdown-item {
+    text-transform: none !important;
+}
+
+/* Navbar logo — proper size */
+.navbar-brand.custom-logo-link {
+    padding: 0 !important;
+    margin-right: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.navbar-brand.custom-logo-link .custom-logo {
+    height: 55px !important;
+    width: auto !important;
+    max-height: 55px !important;
+    min-width: 120px !important;
+    object-fit: contain !important;
+}
+
+@media (max-width: 1024px) {
+    .navbar-brand.custom-logo-link .custom-logo {
+        height: 35px !important;
+        min-width: 100px !important;
+    }
+}
+
+/* Navbar logo — exact live site size (230x25) responsive */
+.navbar-brand.custom-logo-link .custom-logo,
+a.navbar-brand img.custom-logo {
+    width: 230px !important;
+    height: auto !important;
+    max-width: 230px !important;
+    max-height: 50px !important;
+    object-fit: contain !important;
+    display: block !important;
+}
+
+@media (max-width: 1024px) {
+    .navbar-brand.custom-logo-link .custom-logo,
+    a.navbar-brand img.custom-logo {
+        width: 180px !important;
+        max-width: 180px !important;
+    }
+}
+
+@media (max-width: 574px) {
+    .navbar-brand.custom-logo-link .custom-logo,
+    a.navbar-brand img.custom-logo {
+        width: 150px !important;
+        max-width: 150px !important;
+    }
+}
+
+/* Override Bootstrap link color variable — all dropdown items and links */
+:root {
+    --bs-link-color: #50c1ed !important;
+    --bs-link-hover-color: #3aa8d4 !important;
+    --bs-link-color-rgb: 80, 193, 237 !important;
+}
+
+.dropdown-item {
+    color: #3a3a3a !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    color: #50c1ed !important;
+    background-color: #f5f5f5 !important;
+}
+
+/* =============================================
+   HEADER RESPONSIVE — complete fix
+   ============================================= */
+
+/* Desktop nav container — flex align center */
+nav#main-nav .container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+    padding: 0 15px !important;
+}
+
+/* Desktop ≥1025px — show full nav, hide hamburger */
+@media (min-width: 1025px) {
+    #navbarNavDropdown {
+        display: flex !important;
+        flex: 1 !important;
+        justify-content: flex-end !important;
+    }
+
+    #navbarNavDropdown .navbar-nav {
+        flex-direction: row !important;
+        align-items: center !important;
+        flex-wrap: nowrap !important;
+    }
+}
+
+/* Tablet/Mobile ≤1024px — hide desktop nav, show hamburger only */
+@media (max-width: 1024px) {
+    #navbarNavDropdown {
+        display: none !important;
+    }
+
+    nav#main-nav .container {
+        padding: 10px 15px !important;
+    }
+
+    /* Logo on left, hamburger on right */
+    .navbar-brand.custom-logo-link {
+        flex: 1 !important;
+    }
+}
+
+/* Very small screens ≤480px */
+@media (max-width: 480px) {
+    .navbar-brand.custom-logo-link .custom-logo {
+        width: 130px !important;
+        max-width: 130px !important;
+    }
+
+    nav#main-nav {
+        padding: 8px 0 !important;
+    }
+}
+
+/* Top header responsive */
+@media (max-width: 574px) {
+    .top-header ul {
+        justify-content: center !important;
+        gap: 10px 15px !important;
+    }
+
+    .tophead-ul ul li a span {
+        font-size: 13px !important;
+    }
+}
+
+/* Header 1024-1542px — reduce nav link size to fit */
+@media (min-width: 1025px) and (max-width: 1370px) {
+    ul#main-menu li a.nav-link {
+        font-size: 12px !important;
+        padding: 0 !important;
+        margin: 0 6px !important;
+    }
+
+    .navbar-brand.custom-logo-link .custom-logo {
+        width: 160px !important;
+        max-width: 160px !important;
+    }
+
+    nav#main-nav .container {
+        max-width: 100% !important;
+        padding: 0 20px !important;
+    }
+}
+
+@media (min-width: 1371px) and (max-width: 1542px) {
+    ul#main-menu li a.nav-link {
+        font-size: 13px !important;
+        margin: 0 7px !important;
+    }
+
+    .navbar-brand.custom-logo-link .custom-logo {
+        width: 180px !important;
+    }
+}
+
+/* =============================================
+   SP EASY ACCORDION — Products page FAQ
+   ============================================= */
+
+.sp-easy-accordion {
+    max-width: 100%;
+}
+
+.sp-easy-accordion .sp-ea-single {
+    background: transparent !important;
+    border: 2px solid #50c1ed !important;
+    margin-bottom: 15px !important;
+    border-radius: 0 !important;
+    overflow: hidden;
+}
+
+.sp-easy-accordion .sp-ea-single .ea-header {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.sp-easy-accordion .sp-ea-single .ea-header a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 18px 25px !important;
+    color: #090b2c !important;
+    font-size: 22px !important;
+    line-height: 30px !important;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+    background: transparent !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+}
+
+/* Active (open) state — blue background */
+.sp-easy-accordion .sp-ea-single.ea-expand .ea-header a {
+    background: #50c1ed !important;
+    color: #fff !important;
+}
+
+/* Icon container */
+.sp-easy-accordion .sp-ea-icon {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 24px !important;
+    font-weight: 400 !important;
+    flex-shrink: 0 !important;
+    margin-left: 15px !important;
+    color: #090b2c !important;
+    transition: color 0.3s ease !important;
+}
+
+/* Plus icon — show when closed */
+.sp-easy-accordion .sp-ea-single .sp-ea-plus {
+    display: inline-block !important;
+}
+
+.sp-easy-accordion .sp-ea-single .sp-ea-minus {
+    display: none !important;
+}
+
+/* Minus icon — show when open */
+.sp-easy-accordion .sp-ea-single.ea-expand .sp-ea-plus {
+    display: none !important;
+}
+
+.sp-easy-accordion .sp-ea-single.ea-expand .sp-ea-minus {
+    display: inline-block !important;
+}
+
+/* Icon color when open */
+.sp-easy-accordion .sp-ea-single.ea-expand .sp-ea-icon {
+    color: #fff !important;
+}
+
+/* Body content */
+.sp-easy-accordion .sp-ea-single .ea-body {
+    padding: 20px 25px !important;
+    background: #fff !important;
+    color: #3a3a3a !important;
+    font-size: 18px !important;
+    line-height: 28px !important;
+    border-top: 1px solid #e0e0e0 !important;
+}
+
+.sp-easy-accordion .sp-ea-single .ea-body p {
+    margin-bottom: 15px !important;
+    padding-bottom: 0 !important;
+}
+
+.sp-easy-accordion .sp-ea-single .ea-body p:last-child {
+    margin-bottom: 0 !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sp-easy-accordion .sp-ea-single .ea-header a {
+        font-size: 18px !important;
+        line-height: 26px !important;
+        padding: 15px 20px !important;
+    }
+
+    .sp-easy-accordion .sp-ea-single .ea-body {
+        padding: 15px 20px !important;
+        font-size: 16px !important;
+        line-height: 26px !important;
+    }
+
+    .sp-easy-accordion .sp-ea-icon {
+        width: 24px !important;
+        height: 24px !important;
+        font-size: 20px !important;
+        margin-left: 10px !important;
+    }
+}
+
+/* =============================================
+   DOMAIN SEARCH — #wdc-style input group
+   Responsive across 5 breakpoints
+   ============================================= */
+
+#wdc-style {
+    width: 100%;
+    max-width: 900px;
+    margin: 20px auto 10px;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Reset Bootstrap interference */
+#wdc-style form {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#wdc-style .input-group.large {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    border-radius: 4px !important;
+    overflow: hidden !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.2) !important;
+    flex-wrap: nowrap !important;
+}
+
+/* Input field — reset all Bootstrap styles */
+#wdc-style .input-group.large #Search.form-control {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    border: none !important;
+    border-radius: 0 !important;
+    background: #fff !important;
+    color: #3a3a3a !important;
+    outline: none !important;
+    box-shadow: none !important;
+    line-height: 1.4 !important;
+    font-family: inherit !important;
+    display: block !important;
+    /* padding & font-size per breakpoint */
+}
+
+#wdc-style .input-group.large #Search.form-control::placeholder {
+    color: #aaa !important;
+}
+
+/* Button wrapper */
+#wdc-style .input-group.large .input-group-btn {
+    display: flex !important;
+    align-items: stretch !important;
+    flex-shrink: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    height: auto !important;
+    vertical-align: unset !important;
+    font-size: unset !important;
+}
+
+/* Button */
+#wdc-style .input-group.large #Submit {
+    display: block !important;
+    background: #50c1ed !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 0 !important;
+    cursor: pointer !important;
+    white-space: nowrap !important;
+    height: auto !important;
+    line-height: 1.4 !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+    transition: background 0.3s ease !important;
+    font-family: inherit !important;
+    font-weight: 500 !important;
+    /* padding, font-size, min-width per breakpoint */
+}
+
+#wdc-style .input-group.large #Submit:hover {
+    background: #3aa8d4 !important;
+}
+
+#wdc-style .input-group.large #Submit:disabled {
+    opacity: 0.75 !important;
+    cursor: not-allowed !important;
+}
+
+/* ── XL ≥1280px ── */
+@media (min-width: 1280px) {
+    #wdc-style .input-group.large #Search.form-control {
+        padding: 16px 22px !important;
+        font-size: 17px !important;
+    }
+    #wdc-style .input-group.large #Submit {
+        padding: 16px 36px !important;
+        font-size: 16px !important;
+        min-width: 170px !important;
+    }
+}
+
+/* ── LG 1024px–1279px ── */
+@media (min-width: 1024px) and (max-width: 1279px) {
+    #wdc-style .input-group.large #Search.form-control {
+        padding: 15px 20px !important;
+        font-size: 16px !important;
+    }
+    #wdc-style .input-group.large #Submit {
+        padding: 15px 28px !important;
+        font-size: 15px !important;
+        min-width: 150px !important;
+    }
+}
+
+/* ── MD 768px–1023px ── */
+@media (min-width: 768px) and (max-width: 1023px) {
+    #wdc-style .input-group.large #Search.form-control {
+        padding: 14px 16px !important;
+        font-size: 15px !important;
+    }
+    #wdc-style .input-group.large #Submit {
+        padding: 14px 22px !important;
+        font-size: 14px !important;
+        min-width: 130px !important;
+    }
+}
+
+/* ── SM 480px–767px — side by side, compact ── */
+@media (min-width: 480px) and (max-width: 767px) {
+    #wdc-style .input-group.large {
+        flex-direction: row !important;
+    }
+    #wdc-style .input-group.large #Search.form-control {
+        padding: 12px 14px !important;
+        font-size: 14px !important;
+    }
+    #wdc-style .input-group.large #Submit {
+        padding: 12px 16px !important;
+        font-size: 13px !important;
+        min-width: 110px !important;
+    }
+}
+
+/* ── XS <480px — stack vertically ── */
+@media (max-width: 479px) {
+    #wdc-style .input-group.large {
+        flex-direction: column !important;
+        border-radius: 6px !important;
+    }
+    #wdc-style .input-group.large #Search.form-control {
+        padding: 13px 16px !important;
+        font-size: 15px !important;
+        border-radius: 6px 6px 0 0 !important;
+        width: 100% !important;
+    }
+    #wdc-style .input-group.large .input-group-btn {
+        width: 100% !important;
+    }
+    #wdc-style .input-group.large #Submit {
+        padding: 13px 16px !important;
+        font-size: 15px !important;
+        min-width: unset !important;
+        width: 100% !important;
+        border-radius: 0 0 6px 6px !important;
+    }
+}
+
+/* Loading dots */
+@keyframes wdc-jump {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+    30% { transform: translateY(-10px); opacity: 1; }
+}
+
+.wdc-dot-1 { animation: wdc-jump 1s ease-in-out infinite; animation-delay: 0s; }
+.wdc-dot-2 { animation: wdc-jump 1s ease-in-out infinite; animation-delay: 0.18s; }
+.wdc-dot-3 { animation: wdc-jump 1s ease-in-out infinite; animation-delay: 0.36s; }
+
+/* =============================================
+   OUR PARTNERS PAGE — slider & heading fixes
+   ============================================= */
+
+/* Strip any WP editor highlight from headings */
+.our-partners-template h2 mark,
+.our-partners-template h2 span[style] {
+    background: none !important;
+    color: inherit !important;
+    padding: 0 !important;
+}
+
+/* "OUR PARTNERS" label — small uppercase */
+.op-orpartners-inner .wd-100 h5 {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    letter-spacing: 2px !important;
+    text-transform: uppercase !important;
+    color: #3a3a3a !important;
+    padding-bottom: 10px !important;
+}
+
+/* "Over More Than 45+ Company Trust Us" — force single line */
+.op-orpartners-inner .wd-100 h2 {
+    white-space: nowrap !important;
+    font-size: clamp(22px, 3.5vw, 48px) !important;
+    line-height: 1.2 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* Partner slider — each slide shows two logos side by side */
+.op-prtnrsldr .swiper-slide.op-slide-inner {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 20px !important;
+    padding: 20px !important;
+}
+
+.op-prtnrsldr .op-slide-img {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 1 !important;
+    /* max-width: 50% !important; */
+}
+
+.op-prtnrsldr .op-slide-img img {
+    max-height: 80px !important;
+    width: auto !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    margin: 0 !important;
+}
+
+@media (max-width: 574px) {
+    .op-prtnrsldr .swiper-slide.op-slide-inner {
+        flex-direction: column !important;
+        gap: 15px !important;
+    }
+
+    .op-prtnrsldr .op-slide-img {
+        max-width: 100% !important;
+    }
+
+    .op-prtnrsldr .op-slide-img img {
+        max-height: 60px !important;
+    }
+}
+
+/* =============================================
+   SWIPER PAGINATION DOTS — center fix
+   ============================================= */
+
+.swiper-pagination {
+    position: relative !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100% !important;
+    text-align: center !important;
+    display: block !important;
+    margin-top: 20px !important;
+    padding: 0 !important;
+}
+
+.swiper-pagination-horizontal {
+    text-align: center !important;
+    width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+}
+
+.swiper-pagination-bullet {
+    display: inline-block !important;
+    margin: 0 4px !important;
+    vertical-align: middle !important;
+}
+
+/* Swiper with bottom padding for dots */
+.swiper.sw-botom {
+    padding-bottom: 45px !important;
+}
+
+.swiper.sw-botom .swiper-pagination {
+    position: absolute !important;
+    bottom: 5px !important;
+    margin-top: 0 !important;
+}
+
+/* Responsive — ensure dots stay centered on all sizes */
+@media (max-width: 768px) {
+    .swiper-pagination {
+        margin-top: 15px !important;
+    }
+
+    .swiper-pagination-bullet {
+        width: 8px !important;
+        height: 8px !important;
+        margin: 0 3px !important;
+    }
+}
+
+/* =============================================
+   SAT SECURLOG SLIDER — match op-prtnrsldr style
+   ============================================= */
+
+/* Each slide — centered logo with white card */
+.sat-securlog .swiper-slide.wd-100 {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 20px 15px !important;
+    background: #fff !important;
+    box-shadow: 0 0 10px 0 rgba(152, 226, 255, 0.5) !important;
+    border-radius: 12px !important;
+    min-height: 100px !important;
+}
+
+.sat-securlog .swiper-slide.wd-100 img.mx-100 {
+    max-height: 70px !important;
+    width: auto !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    margin: 0 auto !important;
+    display: block !important;
+}
+
+/* Wrapper alignment */
+.sat-securlog .swiper-wrapper {
+    align-items: center !important;
+    padding: 15px 0 !important;
+}
+
+/* Pagination dots below */
+.sat-securlog.sw-botom {
+    padding-bottom: 45px !important;
+}
+
+.sat-securlog .swiper-pagination {
+    bottom: 5px !important;
+}
+
+/* Responsive image sizes */
+@media (max-width: 768px) {
+    .sat-securlog .swiper-slide.wd-100 img.mx-100 {
+        max-height: 55px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .sat-securlog .swiper-slide.wd-100 img.mx-100 {
+        max-height: 45px !important;
+    }
+}
