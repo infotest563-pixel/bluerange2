@@ -66,13 +66,21 @@ function buildFilenameMap(): Record<string, string> {
 }
 
 // ─── Mode switch ──────────────────────────────────────────────────────────────
-// Set IMAGE_MODE=local in .env.local to serve from /public/images/ (requires sync)
-// Set IMAGE_MODE=wp   in .env.local to serve directly from WordPress (always fresh)
-// Default is 'wp' — images always up to date, no sync needed
-const IMAGE_MODE = (
-  typeof process !== 'undefined' &&
-  process.env?.IMAGE_MODE === 'local'
-) ? 'local' : 'wp';
+// IMAGE_MODE=proxy  (default) — URLs become /images/filename.jpg
+//                               Rewrite in next.config.ts proxies them to WordPress.
+//                               URL stays clean, images always live from WordPress.
+//
+// IMAGE_MODE=local  — serve from /public/images/ (requires running sync script)
+//
+// IMAGE_MODE=wp     — serve directly from WordPress (exposes WP domain in HTML)
+//
+// Set IMAGE_MODE in .env.local or Vercel environment variables.
+const IMAGE_MODE = (() => {
+  const mode = typeof process !== 'undefined' ? process.env?.IMAGE_MODE : undefined;
+  if (mode === 'local') return 'local';
+  if (mode === 'wp') return 'wp';
+  return 'proxy'; // default
+})();
 
 
 let _filenameMap: Record<string, string> | null = null;
@@ -114,15 +122,17 @@ function extractFilename(url: string): string {
 /**
  * THE MAIN FUNCTION — use this everywhere in your components.
  *
- * IMAGE_MODE=wp    → always returns the WordPress URL (images update instantly)
- * IMAGE_MODE=local → returns /images/filename if synced, WP URL as fallback
+ * IMAGE_MODE=proxy (default) → returns /images/filename.jpg (proxied via API route)
+ * IMAGE_MODE=wp              → returns the WordPress URL (images update instantly)
+ * IMAGE_MODE=local           → returns /images/filename if synced, WP URL as fallback
  *
- * Set IMAGE_MODE in .env.local. Default is 'wp'.
+ * Set IMAGE_MODE in .env.local or Vercel environment variables.
  *
  * @example
  * wpImgUrl('https://dev-bluerange.pantheonsite.io/wp-content/uploads/2023/09/hero.jpg')
+ * // IMAGE_MODE=proxy → '/images/hero.jpg'  (proxied from WP via API)
  * // IMAGE_MODE=wp    → 'https://dev-bluerange.pantheonsite.io/.../hero.jpg'
- * // IMAGE_MODE=local → '/images/hero.jpg'  (if synced)
+ * // IMAGE_MODE=local → '/images/hero.jpg'  (if synced locally)
  */
 export function wpImgUrl(url: string | null | undefined): string {
   if (!url || typeof url !== 'string') return '';
@@ -151,6 +161,12 @@ export function wpImgUrl(url: string | null | undefined): string {
   // ── IMAGE_MODE=wp: serve directly from WordPress, always fresh ────────────
   if (IMAGE_MODE === 'wp') {
     return normalized; // return the full WP URL — no local lookup needed
+  }
+
+  // ── IMAGE_MODE=proxy: convert to /images/filename.jpg (proxied via API) ───
+  if (IMAGE_MODE === 'proxy') {
+    const filename = extractFilename(normalized);
+    return `/images/${filename}`;
   }
 
   // ── IMAGE_MODE=local: serve from /public/images/ with WP fallback ─────────
@@ -219,10 +235,8 @@ export function replaceWpImagesInHtml(html: string | null | undefined): string {
   // In wp mode — no replacement needed, WP URLs work directly
   if (IMAGE_MODE === 'wp') return html;
 
-  const map = getFilenameMap();
-  if (Object.keys(map).length === 0) return html;
-
-  // Replace all WP image URLs in src="..." and url('...') patterns
+  // In proxy mode — replace WP URLs with /images/filename.jpg
+  // In local mode — replace WP URLs with local paths from manifest
   return html.replace(
     /https?:\/\/[^"'\s)]+\/wp-content\/uploads\/[^"'\s)]+/g,
     (match) => {

@@ -74,6 +74,20 @@ const nextConfig: NextConfig = {
 
   async rewrites() {
     return [
+      // ─── WordPress image proxy ────────────────────────────────────────────
+      // Intercepts any request to /images/* and routes it through our API proxy.
+      // The browser URL stays as /images/hero.jpg — it never sees the API route.
+      // The API route then fetches the real image from WordPress dynamically.
+      //
+      // Examples:
+      //   /images/hero.jpg              → /api/image/hero.jpg
+      //   /images/2023/09/hero.jpg      → /api/image/2023/09/hero.jpg
+      {
+        source: '/images/:path*',
+        destination: '/api/image/:path*',
+      },
+
+      // ─── Legacy: direct wp-content proxy (keep for backward compat) ───────
       {
         source: '/wp-content/:path*',
         destination: 'https://dev-bluerange.pantheonsite.io/wp-content/:path*',
