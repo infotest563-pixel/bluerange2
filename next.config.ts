@@ -86,12 +86,6 @@ const nextConfig: NextConfig = {
         source: '/images/:path*',
         destination: '/api/image/:path*',
       },
-
-      // ─── Legacy: direct wp-content proxy (keep for backward compat) ───────
-      {
-        source: '/wp-content/:path*',
-        destination: 'https://dev-bluerange.pantheonsite.io/wp-content/:path*',
-      },
     ];
   },
 };
