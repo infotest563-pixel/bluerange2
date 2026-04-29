@@ -74,10 +74,14 @@ export async function POST(req: NextRequest) {
       revalidated.push('/ (all pages via layout)');
     }
 
-    // ── Also trigger image sync if an image was updated ───────────────────
+    // ── Option D: Media/image updated — revalidate ALL pages ─────────────
+    // When an image changes in WordPress, every page that uses it must refresh.
+    // The proxy fetches fresh bytes, but the page HTML also needs to revalidate
+    // so Next.js re-fetches the page data from WordPress (new image URL/slug).
     if (body.type === 'media' || body.post_type === 'attachment') {
-      // Log it — actual sync happens via the wp-image-webhook route
-      console.log('[revalidate] Media updated, consider running sync-images');
+      revalidatePath('/', 'layout');
+      revalidated.push('/ (all pages — media updated)');
+      console.log('[revalidate] Media updated → revalidated all pages');
     }
 
     console.log('[revalidate] Revalidated:', revalidated);

@@ -4,10 +4,11 @@
  * INSTANT UPDATE VERSION — WordPress image change = live immediately
  *
  * Caching layers bypassed:
- *   1. Next.js fetch cache  → cache: 'no-store'
- *   2. Next.js route cache  → export const dynamic = 'force-dynamic'
- *   3. Vercel CDN cache     → Cache-Control: no-store + Vercel-CDN-Cache-Control
- *   4. Browser cache        → Cache-Control: no-store
+ *   1. Next.js fetch cache        → cache: 'no-store'
+ *   2. Next.js route cache        → export const dynamic = 'force-dynamic'
+ *   3. Vercel CDN cache           → CDN-Cache-Control: no-store
+ *   4. Browser cache              → Cache-Control: no-store
+ *   5. Pantheon/WordPress cache   → cache-busting timestamp query param
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -33,10 +34,15 @@ function getContentType(filename: string): string {
 
 function buildWpImageUrl(pathSegments: string[]): string {
   const joined = pathSegments.join('/');
+
+  // Add cache-busting timestamp so Pantheon CDN never serves stale image
+  // This forces a fresh fetch from WordPress origin every time
+  const cacheBust = `?_cb=${Math.floor(Date.now() / 60000)}`; // changes every 60s
+
   if (joined.startsWith('wp-content/')) {
-    return `${WP_BASE_URL}/${joined}`;
+    return `${WP_BASE_URL}/${joined}${cacheBust}`;
   }
-  return `${WP_BASE_URL}/wp-content/uploads/${joined}`;
+  return `${WP_BASE_URL}/wp-content/uploads/${joined}${cacheBust}`;
 }
 
 // Stop Next.js from caching this route at framework level
@@ -44,7 +50,7 @@ export const dynamic    = 'force-dynamic';
 export const revalidate = 0;
 
 export async function GET(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ path: string[] }> }
 ) {
   const { path } = await params;
@@ -81,17 +87,16 @@ export async function GET(
         'Content-Type':    contentType,
         'Content-Length':  String(imageBuffer.byteLength),
 
-        // Tell browser: never cache
-        'Cache-Control':   'no-store, no-cache, must-revalidate, proxy-revalidate',
-        'Pragma':          'no-cache',
-        'Expires':         '0',
+        // Tell browser: never cache this image
+        'Cache-Control':              'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma':                     'no-cache',
+        'Expires':                    '0',
 
-        // Tell Vercel Edge CDN specifically: do NOT cache this response
-        // This is the KEY header that stops Vercel CDN from caching
-        'CDN-Cache-Control':    'no-store',
-        'Vercel-CDN-Cache-Control': 'no-store',
+        // Tell Vercel Edge CDN: do NOT cache this response
+        'CDN-Cache-Control':          'no-store',
+        'Vercel-CDN-Cache-Control':   'no-store',
 
-        'X-Content-Type-Options': 'nosniff',
+        'X-Content-Type-Options':     'nosniff',
       },
     });
   } catch (error) {
