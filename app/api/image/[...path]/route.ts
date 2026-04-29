@@ -63,8 +63,6 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ path: string[] }> }
 ) {
-  // params.path is an array of URL segments
-  // e.g. /api/image/2023/09/hero.jpg → ['2023', '09', 'hero.jpg']
   const { path } = await params;
 
   if (!path || path.length === 0) {
@@ -74,51 +72,56 @@ export async function GET(
   const wpImageUrl = buildWpImageUrl(path);
 
   try {
-    // Fetch the image from WordPress
-    const wpResponse = await fetch(wpImageUrl, {
-      // Cache the WordPress response for 1 hour on the server
-      // This means: if 100 users request the same image within 1 hour,
-      // WordPress is only hit ONCE — the rest are served from cache.
-      next: { revalidate: 3600 },
+    // ── Speed Optimization 1: Browser Cache Hit ───────────────────────────
+    // If browser sends If-None-Match header (ETag), check if image changed.
+    // If NOT changed → return 304 (empty body) → browser uses cached version.
+    // This is the FASTEST possible response — no image data transferred at all.
+    const ifNoneMatch = request.headers.get('if-none-match');
 
+    const wpResponse = await fetch(wpImageUrl, {
+      next: { revalidate: 60 }, // recheck WordPress every 60 seconds
       headers: {
-        // Identify ourselves to WordPress
         'User-Agent': 'NextJS-Image-Proxy/1.0',
+        // Forward ETag check to WordPress
+        ...(ifNoneMatch ? { 'If-None-Match': ifNoneMatch } : {}),
       },
     });
 
-    if (!wpResponse.ok) {
-      console.error(
-        `[image-proxy] Failed to fetch ${wpImageUrl}: ${wpResponse.status} ${wpResponse.statusText}`
-      );
-      return new NextResponse(`Image not found: ${path.join('/')}`, {
-        status: wpResponse.status,
-      });
+    // WordPress says image not changed → tell browser to use its cache
+    if (wpResponse.status === 304) {
+      return new NextResponse(null, { status: 304 });
     }
 
-    // Get the raw image bytes from WordPress
-    const imageBuffer = await wpResponse.arrayBuffer();
+    if (!wpResponse.ok) {
+      console.error(`[image-proxy] Failed: ${wpImageUrl} → ${wpResponse.status}`);
+      return new NextResponse(`Image not found`, { status: wpResponse.status });
+    }
 
-    // Determine the filename (last segment) for content-type detection
-    const filename = path[path.length - 1];
+    const imageBuffer = await wpResponse.arrayBuffer();
+    const filename    = path[path.length - 1];
     const contentType = getContentType(filename);
 
-    // Return the image with proper headers
+    // ── Speed Optimization 3: ETag for future requests ────────────────────
+    // ETag = unique fingerprint of the image.
+    // Next visit: browser sends ETag → if image unchanged → 304 (instant).
+    const etag = wpResponse.headers.get('etag') ??
+      `"${path.join('-')}-${imageBuffer.byteLength}"`;
+
+    // ── Speed Optimization 4: Smart Caching Strategy ─────────────────
+    // max-age=0                 → Browser ALWAYS checks server (but uses ETag for instant 304)
+    // s-maxage=31536000         → Vercel Edge CDN caches 1 year (but revalidates via ETag)
+    // stale-while-revalidate    → Serve cached instantly, refresh in background
+    //
+    // Result: FAST (CDN cached) + FRESH (ETag checks if changed every request)
     return new NextResponse(imageBuffer, {
       status: 200,
       headers: {
-        // Tell the browser what type of file this is
-        'Content-Type': contentType,
-
-        // Cache-Control strategy:
-        //   public          — can be cached by CDN (Vercel Edge) and browsers
-        //   max-age=3600    — browser caches for 1 hour
-        //   s-maxage=86400  — Vercel Edge CDN caches for 24 hours
-        //   stale-while-revalidate=86400 — serve stale while fetching fresh in background
-        'Cache-Control': 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400',
-
-        // Security: prevent the image from being embedded in iframes on other sites
+        'Content-Type':           contentType,
+        'Cache-Control':          'public, max-age=0, s-maxage=31536000, stale-while-revalidate=31536000',
+        'ETag':                   etag,
         'X-Content-Type-Options': 'nosniff',
+        // ── Speed Optimization 5: Tell browser image size upfront ─────────
+        'Content-Length':         String(imageBuffer.byteLength),
       },
     });
   } catch (error) {
