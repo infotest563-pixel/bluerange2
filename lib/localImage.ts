@@ -120,6 +120,31 @@ function extractFilename(url: string): string {
 }
 
 /**
+ * Extracts the FULL sub-path after /wp-content/uploads/
+ * Preserves year/month folder structure.
+ *
+ * e.g. "https://example.com/wp-content/uploads/2023/09/hero.jpg"
+ *      → "2023/09/hero.jpg"
+ *
+ * e.g. "https://example.com/wp-content/uploads/hero.jpg"
+ *      → "hero.jpg"
+ */
+function extractUploadPath(url: string): string {
+  // Strip query string first
+  const cleanUrl = url.split('?')[0];
+
+  // Find the /wp-content/uploads/ marker and take everything after it
+  const marker = '/wp-content/uploads/';
+  const idx = cleanUrl.indexOf(marker);
+  if (idx !== -1) {
+    return cleanUrl.slice(idx + marker.length);
+  }
+
+  // Fallback: just return the filename
+  return extractFilename(cleanUrl);
+}
+
+/**
  * THE MAIN FUNCTION — use this everywhere in your components.
  *
  * IMAGE_MODE=proxy (default) → returns /images/filename.jpg (proxied via API route)
@@ -163,10 +188,12 @@ export function wpImgUrl(url: string | null | undefined): string {
     return normalized; // return the full WP URL — no local lookup needed
   }
 
-  // ── IMAGE_MODE=proxy: convert to /images/filename.jpg (proxied via API) ───
+  // ── IMAGE_MODE=proxy: convert to /images/2023/09/filename.jpg (proxied via API) ───
   if (IMAGE_MODE === 'proxy') {
-    const filename = extractFilename(normalized);
-    return `/images/${filename}`;
+    // Keep the FULL upload path including year/month folders
+    // e.g. https://.../wp-content/uploads/2023/09/hero.jpg → /images/2023/09/hero.jpg
+    const uploadPath = extractUploadPath(normalized);
+    return `/images/${uploadPath}`;
   }
 
   // ── IMAGE_MODE=local: serve from /public/images/ with WP fallback ─────────
