@@ -3,11 +3,11 @@
  * ==============================
  * INSTANT UPDATE VERSION — WordPress image change = live immediately
  *
- * Caching layers we bypass:
- *   1. Next.js fetch cache     → cache: 'no-store'
- *   2. Next.js route cache     → export const dynamic = 'force-dynamic'
- *   3. Vercel CDN cache        → Cache-Control: no-store
- *   4. Browser cache           → Cache-Control: no-store
+ * Caching layers bypassed:
+ *   1. Next.js fetch cache  → cache: 'no-store'
+ *   2. Next.js route cache  → export const dynamic = 'force-dynamic'
+ *   3. Vercel CDN cache     → Cache-Control: no-store + Vercel-CDN-Cache-Control
+ *   4. Browser cache        → Cache-Control: no-store
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -39,12 +39,12 @@ function buildWpImageUrl(pathSegments: string[]): string {
   return `${WP_BASE_URL}/wp-content/uploads/${joined}`;
 }
 
-// Layer 1 fix: Stop Next.js from caching this route
-export const dynamic   = 'force-dynamic';
+// Stop Next.js from caching this route at framework level
+export const dynamic    = 'force-dynamic';
 export const revalidate = 0;
 
 export async function GET(
-  request: NextRequest,
+  _request: NextRequest,
   { params }: { params: Promise<{ path: string[] }> }
 ) {
   const { path } = await params;
@@ -56,14 +56,13 @@ export async function GET(
   const wpImageUrl = buildWpImageUrl(path);
 
   try {
-    // Layer 2 fix: cache: 'no-store' → ALWAYS fetch fresh from WordPress
-    // Never use Vercel's internal fetch cache
+    // Always fetch fresh from WordPress — bypass ALL fetch caches
     const wpResponse = await fetch(wpImageUrl, {
       cache: 'no-store',
       headers: {
-        'User-Agent':               'NextJS-Image-Proxy/1.0',
-        'Cache-Control':            'no-cache',       // tell WordPress: give fresh image
-        'Pragma':                   'no-cache',       // old browsers/servers
+        'User-Agent':    'NextJS-Image-Proxy/1.0',
+        'Cache-Control': 'no-cache, no-store',
+        'Pragma':        'no-cache',
       },
     });
 
@@ -76,18 +75,21 @@ export async function GET(
     const filename    = path[path.length - 1];
     const contentType = getContentType(filename);
 
-    // Layer 3 + 4 fix: Tell Vercel CDN and browser — do NOT cache this
     return new NextResponse(imageBuffer, {
       status: 200,
       headers: {
-        'Content-Type':           contentType,
-        'Content-Length':         String(imageBuffer.byteLength),
+        'Content-Type':    contentType,
+        'Content-Length':  String(imageBuffer.byteLength),
 
-        // no-store = nothing is cached anywhere
-        // Every request fetches fresh from WordPress
-        'Cache-Control':          'no-store, no-cache, must-revalidate',
-        'Pragma':                 'no-cache',
-        'Expires':                '0',
+        // Tell browser: never cache
+        'Cache-Control':   'no-store, no-cache, must-revalidate, proxy-revalidate',
+        'Pragma':          'no-cache',
+        'Expires':         '0',
+
+        // Tell Vercel Edge CDN specifically: do NOT cache this response
+        // This is the KEY header that stops Vercel CDN from caching
+        'CDN-Cache-Control':    'no-store',
+        'Vercel-CDN-Cache-Control': 'no-store',
 
         'X-Content-Type-Options': 'nosniff',
       },

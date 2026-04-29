@@ -75,7 +75,7 @@ export async function getSite(lang: string = 'sv') {
 export async function getPageById(id: number, lang: string = 'sv') {
     try {
         const res = await fetch(`${WP}/wp-json/wp/v2/pages/${id}?_embed&lang=${lang}&acf_format=standard`, { 
-            next: { revalidate: 60 },
+            next: { revalidate: 30 }, // recheck every 30 seconds
             redirect: 'manual'
         });
         
@@ -94,7 +94,7 @@ export async function getPageById(id: number, lang: string = 'sv') {
 
 export async function getMedia(id: number, lang: string = 'sv') {
     const media = await fetch(`${WP}/wp-json/wp/v2/media/${id}?lang=${lang}`, { 
-        next: { revalidate: 60 },  // ✅ reduced from 3600 → 60 seconds
+        next: { revalidate: 30 }, // recheck every 30 seconds
         redirect: 'manual'
     }).then(r => r.json());
     return transformWpImages(media);
@@ -103,7 +103,7 @@ export async function getMedia(id: number, lang: string = 'sv') {
 export async function getPageBySlug(slug: string, lang: string = 'sv') {
     try {
         const res = await fetch(`${WP}/wp-json/wp/v2/pages?slug=${slug}&_embed&lang=${lang}&acf_format=standard`, { 
-            next: { revalidate: 60 },
+            next: { revalidate: 30 }, // recheck every 30 seconds
             redirect: 'manual'
         });
         
@@ -123,7 +123,7 @@ export async function getPageBySlug(slug: string, lang: string = 'sv') {
 export async function getPostBySlug(slug: string, lang: string = 'sv') {
     try {
         const res = await fetch(`${WP}/wp-json/wp/v2/posts?slug=${slug}&_embed&lang=${lang}&acf_format=standard`, { 
-            next: { revalidate: 60 },
+            next: { revalidate: 30 }, // recheck every 30 seconds
             redirect: 'manual'
         });
         
