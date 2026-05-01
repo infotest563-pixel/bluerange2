@@ -104,8 +104,8 @@ export default async function DesignedHomepage({ page, lang = 'en' }: { page: an
                         {acf.cloud_services?.map((row: any, i: number) => {
                             const imgUrl = getImg(row.services_image);
                             return (
-                                <div key={i} className="bl-box col-sm-6 col-lg-4">
-                                    <div className="wd-100">
+                                <div key={i} className="col-sm-6 col-lg-4">
+                                    <div className="wd-100 text-center">
                                         <div className="rounded-circle" style={{ backgroundColor: row.services_image_background }}>
                                             {imgUrl && <img src={imgUrl} className="img-fluid" alt="" />}
                                         </div>
@@ -175,8 +175,8 @@ export default async function DesignedHomepage({ page, lang = 'en' }: { page: an
                         {acf.service_support_system?.map((row: any, i: number) => {
                             const imgUrl = getImg(row.service_support_image);
                             return (
-                                <div key={i} className="bl-box col-sm-6 col-lg-4">
-                                    <div className="wd-100">
+                                <div key={i} className="col-sm-6 col-lg-4">
+                                    <div className="wd-100 text-center">
                                         <div className="rounded-circle">
                                             {imgUrl && <img src={imgUrl} className="img-fluid" alt="" />}
                                         </div>
@@ -205,8 +205,8 @@ export default async function DesignedHomepage({ page, lang = 'en' }: { page: an
                     </div>
                     <div className="row hm-Sustinble-inner top-round whtbx-inner tx-center">
                         {acf.sustainable_services?.map((row: any, i: number) => (
-                            <div key={i} className="bl-box col-sm-6 col-lg-4">
-                                <div className="wd-100">
+                            <div key={i} className="col-sm-6 col-lg-4">
+                                <div className="wd-100 text-center">
                                     <div className="rounded-circle">
                                         <img src={getImg(row.services_image)} className="img-fluid" alt="" />
                                     </div>
@@ -224,8 +224,8 @@ export default async function DesignedHomepage({ page, lang = 'en' }: { page: an
                 <div className="container">
                     <div className="row hm-servicedesk-inner text-center">
                         {acf.services?.map((row: any, i: number) => (
-                            <div key={i} className="bl-box col-sm-6 col-lg-4">
-                                <div className="wd-100">
+                            <div key={i} className="col-sm-6 col-lg-4">
+                                <div className="wd-100 text-center">
                                     <div className="rounded-circle">
                                         <img src={getImg(row.services_image)} className="img-fluid" alt="" />
                                     </div>
@@ -277,7 +277,7 @@ export default async function DesignedHomepage({ page, lang = 'en' }: { page: an
 
                                 <div className="row hm-abuts-boxx">
                                     {acf.address?.map((row: any, i: number) => (
-                                        <div key={i} className="bl-box col-sm-6 col-lg-6">
+                                        <div key={i} className="col-sm-6 col-lg-6">
                                             <div className="wd-100 tx-18">
                                                 {row.address_title && <h5>{row.address_title}</h5>}
                                                 {row.detail_address && <div dangerouslySetInnerHTML={{ __html: row.detail_address }} />}
@@ -356,8 +356,8 @@ export default async function DesignedHomepage({ page, lang = 'en' }: { page: an
                     </div>
                     <div className="row hm-Sustinble-inner top-round whtbx-inner tx-center">
                         {acf.high_quality_cloud_services?.map((row: any, i: number) => (
-                            <div key={i} className="bl-box col-sm-6 col-lg-4">
-                                <div className="wd-100">
+                            <div key={i} className="col-sm-6 col-lg-4">
+                                <div className="wd-100 text-center">
                                     {row.cloud_service_image && (
                                         <div className="rounded-circle">
                                             <img src={getImg(row.cloud_service_image)} className="img-fluid" alt="" />
