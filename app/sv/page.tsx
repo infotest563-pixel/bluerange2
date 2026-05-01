@@ -1,9 +1,8 @@
 import { getSettings, getPageById } from '../../lib/wp';
 import DesignedHomepage from '../../components/DesignedHomepage';
 
-// ✅ On-demand revalidation only (no automatic timer)
-// WordPress webhook calls /api/revalidate → clears cache instantly
-export const revalidate = 0;
+// ✅ Fully dynamic — always fetches fresh data on every request
+export const dynamic = 'force-dynamic';
 
 export default async function SwedishHome() {
   const settings = await getSettings('sv');

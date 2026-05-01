@@ -2,9 +2,8 @@ import { getPageBySlug, getPostBySlug, getSettings } from '../../../lib/wp';
 import { redirect, notFound } from 'next/navigation';
 import WordPressPageRenderer from '../../../components/pages/WordPressPageRenderer';
 
-// ✅ On-demand revalidation only (no automatic timer)
-// WordPress webhook calls /api/revalidate → clears cache instantly
-export const revalidate = 0;
+// ✅ Fully dynamic — always fetches fresh data on every request
+export const dynamic = 'force-dynamic';
 
 // Generate static params for all Swedish pages
 export async function generateStaticParams() {

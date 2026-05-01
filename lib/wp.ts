@@ -3,15 +3,22 @@
  * ==========================
  * Fetches pages, posts, settings, and menus from WordPress.
  *
- * CACHING STRATEGY:
+ * CACHING STRATEGY — FULLY DYNAMIC:
  *   - All fetches use cache: 'no-store' → always fresh from WordPress
- *   - Pages use ISR with revalidate: 0 → build-time static, on-demand revalidation
- *   - WordPress webhooks call /api/revalidate to clear cache instantly
+ *   - Pages use dynamic: 'force-dynamic' → no static generation
+ *   - Every request fetches fresh data from WordPress
  *
  * This ensures:
  *   ✅ WordPress content updates appear instantly on Vercel
  *   ✅ No manual redeploy needed
+ *   ✅ No webhooks needed
  *   ✅ ACF fields included automatically
+ *
+ * Trade-off:
+ *   ⚠️ Slower page loads (fetches from WordPress on every request)
+ *   ⚠️ More load on WordPress server
+ *
+ * Alternative: Use revalidate: 0 + webhooks for better performance
  */
 
 import { transformPage, transformWpImages } from './wpImageTransform';
