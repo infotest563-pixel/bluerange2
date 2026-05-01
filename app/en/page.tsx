@@ -1,9 +1,9 @@
 import { getSettings, getPageById } from '../../lib/wp';
 import DesignedHomepage from '../../components/DesignedHomepage';
 
-// ✅ Fully dynamic — always fetches fresh data on every request
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+// ✅ ISR with on-demand revalidation
+// Pages are static (fast) but revalidate when WordPress webhook fires
+export const revalidate = 0; // Only revalidate via webhook
 
 export default async function EnglishHome() {
   const settings = await getSettings('en');

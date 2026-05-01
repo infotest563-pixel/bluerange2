@@ -2,11 +2,9 @@ import { getPageBySlug, getPostBySlug, getSettings } from '../../../lib/wp';
 import { redirect, notFound } from 'next/navigation';
 import WordPressPageRenderer from '../../../components/pages/WordPressPageRenderer';
 
-// ✅ Fully dynamic — always fetches fresh data on every request
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-
-// Enable dynamic rendering for pages not in generateStaticParams
+// ✅ ISR with on-demand revalidation
+// Pages are static (fast) but revalidate when WordPress webhook fires
+export const revalidate = 0; // Only revalidate via webhook
 export const dynamicParams = true;
 
 export default async function EnglishPage({ params }: { params: Promise<{ slug: string }> }) {

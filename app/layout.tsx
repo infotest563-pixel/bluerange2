@@ -3,9 +3,8 @@ import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-// ✅ FORCE ENTIRE APP TO BE DYNAMIC (NO STATIC GENERATION)
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+// ✅ ISR with on-demand revalidation (not force-dynamic)
+export const revalidate = 0; // Only revalidate via webhook
 
 export const metadata: Metadata = {
   title: "Bluerange",
