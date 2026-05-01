@@ -43,7 +43,7 @@ export type WpSettings = {
  * Cached for 5 minutes since settings rarely change.
  */
 export async function getSettings(lang: string = 'sv'): Promise<WpSettings> {
-  const url = `${WP}/wp-json/headless/v1/site-settings?lang=${lang}`;
+  const url = `${WP}/wp-json/headless/v2/site-settings?lang=${lang}`;
 
   try {
     const res = await fetch(url, {
@@ -78,7 +78,7 @@ export async function getSettings(lang: string = 'sv'): Promise<WpSettings> {
  * Cached for 1 hour since site info changes very rarely.
  */
 export async function getSite(lang: string = 'sv') {
-  const url = `${WP}/wp-json/headless/v1/site/?lang=${lang}`;
+  const url = `${WP}/wp-json/headless/v2/site/?lang=${lang}`;
 
   try {
     const res = await fetch(url, {
