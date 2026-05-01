@@ -113,6 +113,9 @@ export async function getPageById(id: number, lang: string = 'sv') {
   try {
     const url = `${WP}/wp-json/wp/v2/pages/${id}?_embed&lang=${lang}&acf_format=standard`;
 
+    console.log(`[getPageById] 🔄 Fetching page ${id} (${lang})...`);
+    console.log(`[getPageById] 📍 URL: ${url}`);
+
     const res = await fetch(url, {
       cache: 'no-store', // ✅ Always fetch fresh — no Next.js fetch cache
       headers: {
@@ -121,14 +124,33 @@ export async function getPageById(id: number, lang: string = 'sv') {
     });
 
     if (!res.ok) {
-      console.error(`[getPageById] ${res.status} for ID ${id}`);
+      console.error(`[getPageById] ❌ ${res.status} for ID ${id}`);
       return null;
     }
 
     const page = await res.json();
+    
+    // ✅ Log what we received
+    console.log(`[getPageById] ✅ Success! Page ${id}:`, {
+      id: page.id,
+      title: page.title?.rendered,
+      slug: page.slug,
+      modified: page.modified,
+      has_acf: !!page.acf,
+      acf_fields: page.acf ? Object.keys(page.acf) : [],
+      timestamp: new Date().toISOString(),
+    });
+
+    // Log ACF data if present
+    if (page.acf) {
+      console.log(`[getPageById] 📦 ACF Data:`, page.acf);
+    } else {
+      console.warn(`[getPageById] ⚠️ No ACF data found for page ${id}`);
+    }
+
     return transformPage(page);
   } catch (err) {
-    console.error(`[getPageById] Error:`, err);
+    console.error(`[getPageById] ❌ Error:`, err);
     return null;
   }
 }
@@ -141,6 +163,9 @@ export async function getPageBySlug(slug: string, lang: string = 'sv') {
   try {
     const url = `${WP}/wp-json/wp/v2/pages?slug=${slug}&_embed&lang=${lang}&acf_format=standard`;
 
+    console.log(`[getPageBySlug] 🔄 Fetching slug "${slug}" (${lang})...`);
+    console.log(`[getPageBySlug] 📍 URL: ${url}`);
+
     const res = await fetch(url, {
       cache: 'no-store', // ✅ Always fetch fresh
       headers: {
@@ -149,14 +174,40 @@ export async function getPageBySlug(slug: string, lang: string = 'sv') {
     });
 
     if (!res.ok) {
-      console.error(`[getPageBySlug] ${res.status} for slug "${slug}"`);
+      console.error(`[getPageBySlug] ❌ ${res.status} for slug "${slug}"`);
       return null;
     }
 
     const data = await res.json();
-    return transformPage(data[0] || null);
+    
+    if (!data || data.length === 0) {
+      console.warn(`[getPageBySlug] ⚠️ No page found with slug "${slug}"`);
+      return null;
+    }
+
+    const page = data[0];
+
+    // ✅ Log what we received
+    console.log(`[getPageBySlug] ✅ Success! Slug "${slug}":`, {
+      id: page.id,
+      title: page.title?.rendered,
+      slug: page.slug,
+      modified: page.modified,
+      has_acf: !!page.acf,
+      acf_fields: page.acf ? Object.keys(page.acf) : [],
+      timestamp: new Date().toISOString(),
+    });
+
+    // Log ACF data if present
+    if (page.acf) {
+      console.log(`[getPageBySlug] 📦 ACF Data:`, page.acf);
+    } else {
+      console.warn(`[getPageBySlug] ⚠️ No ACF data found for slug "${slug}"`);
+    }
+
+    return transformPage(page);
   } catch (err) {
-    console.error(`[getPageBySlug] Error:`, err);
+    console.error(`[getPageBySlug] ❌ Error:`, err);
     return null;
   }
 }
