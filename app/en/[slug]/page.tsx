@@ -2,8 +2,9 @@ import { getPageBySlug, getPostBySlug, getSettings } from '../../../lib/wp';
 import { redirect, notFound } from 'next/navigation';
 import WordPressPageRenderer from '../../../components/pages/WordPressPageRenderer';
 
-// ✅ ISR: revalidate every 60 seconds after first visit
-export const revalidate = 60;
+// ✅ On-demand revalidation only (no automatic timer)
+// WordPress webhook calls /api/revalidate → clears cache instantly
+export const revalidate = 0;
 
 // Generate static params for all English pages
 export async function generateStaticParams() {

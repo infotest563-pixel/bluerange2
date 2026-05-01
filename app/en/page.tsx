@@ -1,8 +1,9 @@
 import { getSettings, getPageById } from '../../lib/wp';
 import DesignedHomepage from '../../components/DesignedHomepage';
 
-// ✅ ISR: revalidate this page every 60 seconds
-export const revalidate = 60;
+// ✅ On-demand revalidation only (no automatic timer)
+// WordPress webhook calls /api/revalidate → clears cache instantly
+export const revalidate = 0;
 
 export default async function EnglishHome() {
   const settings = await getSettings('en');
