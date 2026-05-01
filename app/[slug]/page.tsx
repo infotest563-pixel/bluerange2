@@ -4,21 +4,7 @@ import WordPressPageRenderer from '../../components/pages/WordPressPageRenderer'
 
 // ✅ Fully dynamic — always fetches fresh data on every request
 export const dynamic = 'force-dynamic';
-
-// Generate static params for all Swedish pages
-export async function generateStaticParams() {
-    try {
-        const res = await fetch('https://dev-bluerange.pantheonsite.io/wp-json/wp/v2/pages?per_page=100&lang=sv');
-        const pages = await res.json();
-        
-        return pages.map((page: any) => ({
-            slug: page.slug,
-        }));
-    } catch (error) {
-        console.error('Error generating static params for Swedish:', error);
-        return [];
-    }
-}
+export const revalidate = 0;
 
 // Enable dynamic rendering for pages not in generateStaticParams
 export const dynamicParams = true;

@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // ✅ DISABLE ALL STATIC OPTIMIZATION
+  output: undefined, // Don't use 'export' or 'standalone'
+  
   eslint: {
     ignoreDuringBuilds: true,
   },

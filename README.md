@@ -1,63 +1,80 @@
 # Bluerange Headless WordPress + Next.js
 
-## Current Setup — Fully Dynamic (No Caching)
+## ✅ FULLY DYNAMIC SETUP (NO CACHING)
 
-### Configuration
+### What Changed
 
-All pages use:
-```typescript
-export const dynamic = 'force-dynamic';
-```
+1. **`app/layout.tsx`** — Added `dynamic = 'force-dynamic'` to root layout
+2. **`next.config.ts`** — Disabled static optimization
+3. **All page files** — Added `revalidate = 0` + removed `generateStaticParams`
+4. **`lib/wp.ts`** — Already using `cache: 'no-store'`
 
-All API calls use:
-```typescript
-fetch(url, { cache: 'no-store' })
-```
-
-### What This Means
-
-✅ **WordPress updates appear instantly** — no delay, no webhooks needed
-✅ **Always fresh data** — every page load fetches from WordPress
-✅ **No manual redeploy** — changes go live immediately
-
-⚠️ **Trade-off:** Slower page loads (fetches from WordPress on every request)
-
-### How It Works
+### How It Works Now
 
 ```
 User visits page
      ↓
-Next.js fetches from WordPress (fresh data)
+Next.js fetches from WordPress (NO CACHE)
      ↓
-Page renders with latest content
+Page renders with FRESH data
      ↓
-✅ User sees updated content
+✅ User sees LATEST content from WordPress
 ```
 
-### Files Changed
-
-- `app/en/page.tsx` — Homepage (English)
-- `app/sv/page.tsx` — Homepage (Swedish)
-- `app/[slug]/page.tsx` — Dynamic pages (Swedish)
-- `app/en/[slug]/page.tsx` — Dynamic pages (English)
-- `app/sv/[slug]/page.tsx` — Dynamic pages (Swedish)
-- `lib/wp.ts` — WordPress API client
-
-All use `dynamic: 'force-dynamic'` + `cache: 'no-store'`
-
-### Deploy
+### Deploy to Vercel
 
 ```bash
+# 1. Commit changes
 git add .
-git commit -m "Enable fully dynamic rendering"
+git commit -m "Force fully dynamic rendering - disable all caching"
 git push
+
+# 2. Wait for Vercel deployment (2-3 minutes)
+
+# 3. Test
+# - Update page in WordPress
+# - Visit Vercel site
+# - ✅ Changes appear immediately
 ```
 
-Vercel will auto-deploy. After deployment, WordPress changes appear instantly.
+### After Deployment
 
-### Documentation
+1. Go to WordPress
+2. Edit page 2182 (Front page)
+3. Change "About Us Title" to "TEST 456"
+4. Click Update
+5. Visit https://bluerange2.vercel.app/sv
+6. ✅ Should show "TEST 456" immediately
 
-- `CACHING-EXPLAINED.md` — Understanding Next.js caching
-- `ACF-GUIDE.md` — Using ACF fields with Next.js
-- `DEBUGGING-GUIDE.md` — How to debug API issues
-- `WORDPRESS-NEXTJS-SETUP.md` — Complete setup guide
+### Configuration Summary
+
+| File | Setting | Effect |
+|---|---|---|
+| `app/layout.tsx` | `dynamic = 'force-dynamic'` | Entire app is dynamic |
+| All pages | `revalidate = 0` | No time-based revalidation |
+| `lib/wp.ts` | `cache: 'no-store'` | No fetch caching |
+| `next.config.ts` | No static export | Allows dynamic rendering |
+
+### Result
+
+✅ **WordPress updates appear INSTANTLY on Vercel**
+✅ **No webhooks needed**
+✅ **No manual redeploy needed**
+✅ **Every request fetches fresh data**
+
+⚠️ **Trade-off:** Slower page loads (fetches from WordPress on every request)
+
+### Troubleshooting
+
+If changes still don't appear:
+
+1. **Hard refresh browser:** `Ctrl + Shift + R`
+2. **Check Vercel deployment:** Make sure latest commit is deployed
+3. **Check WordPress API:** Open `https://dev-bluerange.pantheonsite.io/wp-json/wp/v2/pages/2182` in browser
+4. **Check Vercel logs:** Functions → Logs → Look for fetch requests
+
+### API URL
+
+WordPress REST API: `https://dev-bluerange.pantheonsite.io/wp-json/wp/v2/pages`
+
+Test specific page: `https://dev-bluerange.pantheonsite.io/wp-json/wp/v2/pages/2182?acf_format=standard`

@@ -3,6 +3,7 @@ import DesignedHomepage from '../../components/DesignedHomepage';
 
 // ✅ Fully dynamic — always fetches fresh data on every request
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function SwedishHome() {
   const settings = await getSettings('sv');
